@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Панель управления пользователями</title>
+  <link rel="stylesheet" href="/css/body.css">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<main>
+  <h1>Панель управления пользователями</h1>
+  <a href="/">На главную</a>
+  <table>
+    <th>Имя</th>
+    <th>Роль</th>
+    <tr th:each="one : ${all}">
+      <td th:text="${one.getName()}"></td>
+      <td>
+        <form method="post" th:action="'/user/admin/' + ${one.getId()} + '/role'">
+          <select th:name="role" th:disabled="${one == user}" onchange="this.form.submit()">
+            <option th:each="role : ${roles}" th:selected="${one.getRole() == role}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
+          </select>
+        </form>
+      </td>
+    </tr>
+  </table>
+</main>
+</body>
+</html>

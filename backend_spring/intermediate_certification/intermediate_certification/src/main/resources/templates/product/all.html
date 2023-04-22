@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Продукты</title>
+  <link rel="stylesheet" href="/css/body.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/product/all.css">
+  <th:block th:include="fragments/header.html::css"></th:block>
+  <th:block th:include="product/fragments/search.html::css"></th:block>
+</head>
+<body>
+<header th:insert="fragments/header.html::html"> </header>
+<main>
+  <search th:replace="product/fragments/search.html::html"></search>
+  <div class="Products">
+    <div class="Product" th:each="one : ${all}">
+      <img th:src="'/img/' + ${one.getImage()}" th:alt="${one.getImage()}">
+      <div th:text="${#numbers.formatDecimal(one.getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽'"></div>
+      <a th:href="'/product/' + ${one.getId()}" th:text="${one.getName()}"></a>
+      <div th:if="${param.get('added') != null && param.get('added')[0].equals(one.getId().toString())}" class="Success">Продукт был добавлен в корзину!</div>
+      <form th:if="${user != null}" method="post" th:action="'/cart/' + ${one.getId()}">
+        <input type="submit" value="Добавить в корзину">
+      </form>
+    </div>
+  </div>
+</main>
+</body>
+</html>

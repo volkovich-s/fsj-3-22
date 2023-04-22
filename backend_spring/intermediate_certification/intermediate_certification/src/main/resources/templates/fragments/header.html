@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<head th:fragment="css">
+  <link rel="stylesheet" href="/css/fragments/header.css">
+</head>
+<body>
+<header th:fragment="html">
+  <div id="application">
+    <a href="/">Приложение</a>
+  </div>
+  <div id="links">
+    <a th:if="${user != null}" href="/cart">Корзина</a>
+    <a th:if="${user != null && !user.getRole().getName().equals('ROLE_ADMIN')}" href="/order">Заказы</a>
+    <a th:if="${user != null && user.getRole().getName().equals('ROLE_ADMIN')}" href="/order/admin">Заказы</a>
+    <a th:if="${user != null && user.getRole().getName().equals('ROLE_ADMIN')}" href="/user/admin">Пользователи</a>
+    <a th:if="${user != null && user.getRole().getName().equals('ROLE_ADMIN')}" href="/product/admin">Продукты</a>
+  </div>
+  <div id="user" th:if="${user == null}">
+    <div id="buttons">
+      <a href="/authentication/sign_in">Войти</a>
+      <a href="/authentication/sign_up">Зарегистрироваться</a>
+    </div>
+  </div>
+  <div id="user" th:if="${user != null}">
+    <form id="buttons" action="/authentication/sign_out" method="post">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <div th:text="${user.getName()}"></div>
+      <input type="submit" value="Выйти">
+    </form>
+  </div>
+</header>
+</body>
+</html>

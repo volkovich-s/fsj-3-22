@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/body.css">
+  <link rel="stylesheet" href="/css/fragments/header.css">
+  <link rel="stylesheet" href="/css/product/product.one.css">
+  <title th:text="${one.getName()}"></title>
+</head>
+<body>
+  <header th:replace="thymeleaf_fragments.html::header"></header>
+  <main>
+    <img th:src="'/img/' + ${one.getImage()}" th:alt="${one.getImage()}">
+    <div th:text="'Название: ' + ${one.getName()}"></div>
+    <div th:text="'Цена: ' + ${#numbers.formatDecimal(one.getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽'"></div>
+  </main>
+  <a th:href="@{'/product?name=' + ${session.getOrDefault('product_search_name','')} + '&sorting=' + ${session.getOrDefault('product_search_sorting','')}}" th:text="'Все продукты'"></a>
+  </body>
+</html>

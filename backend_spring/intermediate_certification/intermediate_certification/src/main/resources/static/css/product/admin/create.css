@@ -1,0 +1,18 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main > form {
+  display: flex;
+  flex-direction: column;
+}
+
+main > form > * {
+  width: 100%;
+}
+
+main > form > * > *:nth-child(2) {
+  width: 100%;
+}

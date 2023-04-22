@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<head th:fragment="css">
+  <link rel="stylesheet" href="/css/product/fragments/search.css">
+</head>
+<body>
+  <form th:fragment="html" id="search">
+    <div>Поиск</div>
+    <input id="search_name" type="text" placeholder="Название продукта...">
+    <div>Сортировка</div>
+    <select id="search_sorting">
+      <option value="name">по имени</option>
+      <option value="price">по цене</option>
+    </select>
+    <input type="submit" value="Искать">
+    <script>
+      const search = document.getElementById("search");
+      const search_name = document.getElementById("search_name");
+      const search_sorting = document.getElementById("search_sorting");
+      if(sessionStorage.getItem("search_name")) {
+        search_name.value = sessionStorage.getItem("search_name");
+        sessionStorage.removeItem("search_name");
+      }
+      if(sessionStorage.getItem("search_sorting")) {
+        search_sorting.value = sessionStorage.getItem("search_sorting");
+        sessionStorage.removeItem("search_sorting");
+      }
+      search.addEventListener("submit", function(event) {
+        event.preventDefault();
+        if(search_name.value)
+          sessionStorage.setItem("search_name", search_name.value);
+        if(search_sorting.value)
+          sessionStorage.setItem("search_sorting", search_sorting.value);
+        location.href = window.location.pathname + `?name=${search_name.value}&sorting=${search_sorting.value}`;
+      });
+    </script>
+  </form>
+</body>
+</html>

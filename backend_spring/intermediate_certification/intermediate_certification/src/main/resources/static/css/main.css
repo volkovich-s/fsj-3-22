@@ -1,0 +1,9 @@
+main, .Main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main > *, .Main > * {
+  margin: 4px 0;
+}

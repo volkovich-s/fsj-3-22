@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Заказы</title>
+  <link rel="stylesheet" href="/css/body.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/product/all.css">
+  <th:block th:include="fragments/header.html::css"></th:block>
+</head>
+<body>
+  <header th:insert="fragments/header.html::html"></header>
+  <main>
+    <div class="Products">
+      <div class="Product" th:each="one : ${all}" th:if="${!one.getState().getName().equals('CART')}">
+        <img th:src="'/img/' + ${one.getProduct().getImage()}" th:alt="${one.getProduct().getImage()}">
+        <div th:text="${#numbers.formatDecimal(one.getProduct().getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽'"></div>
+        <div th:text="${one.getCount()}"></div>
+        <div th:text="${#numbers.formatDecimal(one.getCount() * one.getProduct().getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽'"></div>
+        <a th:href="'/product/' + ${one.getProduct().getId()}" th:text="${one.getProduct().getName()}"></a>
+        <div th:text="${one.getState().getName()}"></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

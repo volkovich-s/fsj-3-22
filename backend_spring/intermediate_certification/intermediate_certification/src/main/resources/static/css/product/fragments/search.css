@@ -1,0 +1,8 @@
+#search {
+  display: flex;
+  flex-direction: row;
+}
+
+#search > * {
+  margin: 0 8px;
+}

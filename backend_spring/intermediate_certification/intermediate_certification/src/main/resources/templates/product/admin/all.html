@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Продукты</title>
+  <link rel="stylesheet" href="/css/body.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/product/all.css">
+  <th:block th:include="fragments/header.html::css"></th:block>
+  <th:block th:include="product/fragments/search.html::css"></th:block>
+</head>
+<body>
+<header th:insert="fragments/header.html::html"> </header>
+<main>
+  <search th:replace="product/fragments/search.html::html"></search>
+  <div th:if="${param.get('deleted')}" class="Success">Продукт был удалён!</div>
+  <div class="Products">
+    <div class="Product" th:each="one : ${all}">
+      <img th:src="'/img/' + ${one.getImage()}" th:alt="${one.getImage()}">
+      <div th:text="${#numbers.formatDecimal(one.getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽'"></div>
+      <a th:href="'/product/admin/' + ${one.getId()}" th:text="${one.getName()}"></a>
+      <form method="post" th:action="'/product/admin/' + ${one.getId()} + '/delete'">
+        <input type="submit" value="Удалить">
+      </form>
+    </div>
+    <div class="Product">
+      <img src="/images/none.png">
+      <a href="/product/admin/create">Создать</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

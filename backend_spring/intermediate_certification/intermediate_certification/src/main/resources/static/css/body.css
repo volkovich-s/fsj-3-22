@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+}
+
+.Success {
+  color: green;
+}
+
+.Failure {
+  color: red;
+}

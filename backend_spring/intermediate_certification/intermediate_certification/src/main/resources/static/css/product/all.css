@@ -1,0 +1,23 @@
+.Products {
+    width: 100%; height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.Product {
+    background-color: lightgreen;
+    border-radius: 10%;
+    flex: 0.2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px;
+}
+
+.Product > img {
+    border-radius: 50%;
+    width: 60%;
+    flex: 1;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/body.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <title>Панель управления заказами</title>
+</head>
+<body>
+  <main>
+    <h1>Панель управления заказами</h1>
+    <form id="search">
+      <input id="search_id" type="text" placeholder="Идентификатор заказа...">
+      <input type="submit" value="Искать">
+      <script>
+        const search = document.getElementById("search");
+        const search_id = document.getElementById("search_id");
+        if(sessionStorage.getItem("search_id")) {
+          search_id.value = sessionStorage.getItem("search_id");
+          sessionStorage.removeItem("search_id");
+        }
+        search.addEventListener("submit", function(event) {
+          event.preventDefault();
+          if(search_id.value)
+            sessionStorage.setItem("search_id", search_id.value);
+          location.href = window.location.pathname + `?id=${search_id.value}`;
+        });
+      </script>
+    </form>
+    <a href="/">На главную</a>
+    <table id="orders">
+      <th>Идентификатор заказа</th>
+      <th>Имя пользователя</th>
+      <th>Имя продукта</th>
+      <th>Количество продукта</th>
+      <th>Состояние</th>
+      <tr th:each="one : ${all}">
+        <td th:text="${one.getId()}"></td>
+        <td th:text="${one.getUser().getName()}"></td>
+        <td th:text="${one.getProduct().getName()}"></td>
+        <td th:text="${one.getCount()}"></td>
+        <td>
+          <form method="post" th:action="'/order/admin/' + ${one.getId()} + '/state'">
+            <select th:name="state" onchange="this.form.submit()">
+              <option th:if="${!state.getName().equals('CART')}" th:each="state : ${states}" th:selected="${one.getState() == state}" th:value="${state.getId()}" th:text="${state.getName()}"></option>
+            </select>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </main>
+</body>
+</html>
