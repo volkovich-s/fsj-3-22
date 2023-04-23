@@ -1,0 +1,27 @@
+.ProductCard {
+  width: 16em;
+  border: black solid 1px;
+}
+
+.ProductCardTitle {
+  font-family: 'IMFellFrenchCanon';
+  font-size: 32px;
+}
+
+.ProductCardPrice {
+  font-family: 'IMFellFrenchCanon';
+  font-size: 24px;
+}
+
+.ProductCardButton {
+  font-family: 'IMFellFrenchCanon';
+  font-size: 24px;
+  background-color: transparent;
+  color: black;
+  border: #000E8C solid 1px;
+}
+
+.ProductCardButton:hover {
+  background-color: #000E8C;
+  color: white;
+}

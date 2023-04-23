@@ -1,0 +1,22 @@
+.Footer {
+  background-color: #E7F7FF;
+  color: black;
+}
+
+.Footer .Brand {
+  border: #00268B solid 1px;
+  display: flex;
+}
+
+.Footer .BrandImage {
+  margin-top: 32px;
+  margin-bottom: 32px;
+  margin-left: 32px;
+}
+
+.Footer .BrandText {
+  align-self: center;
+  margin-top: 64px;
+  margin-right: 32px;
+  font-size: 20px;
+}

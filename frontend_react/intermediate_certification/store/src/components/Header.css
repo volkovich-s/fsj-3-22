@@ -1,0 +1,20 @@
+.Header {
+  background-color: #E7F7FF;
+  border-bottom: black solid 1px;
+  color: black;
+  font-family: 'IMFELLFrenchCanon';
+}
+
+.Header .Brand {
+  font-size: 64px;
+}
+
+.Header .Link {
+  font-size: 36px;
+}
+
+.Header .navbar-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
