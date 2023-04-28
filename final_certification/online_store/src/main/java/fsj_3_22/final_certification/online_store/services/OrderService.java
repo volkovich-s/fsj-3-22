@@ -2,17 +2,18 @@ package fsj_3_22.final_certification.online_store.services;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fsj_3_22.final_certification.online_store.repositories.OrderStateRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.lang.NonNull;
 import fsj_3_22.final_certification.online_store.models.*;
-import fsj_3_22.final_certification.online_store.repositories.EnumRepository;
 import fsj_3_22.final_certification.online_store.repositories.OrderRepository;
 
 @Service
 @Transactional(readOnly = true)
 public class OrderService {
-  private final EnumRepository<OrderState> orderStateRepository;
+  private final OrderStateRepository orderStateRepository;
   public List<OrderState> getStates() {
     return orderStateRepository.findAll();
   }
@@ -73,7 +74,7 @@ public class OrderService {
   public void delete(int id) {
     orderRepository.deleteById(id);
   }
-  public OrderService(@NonNull EnumRepository<OrderState> orderStateRepository, @NonNull OrderRepository orderRepository) {
+  public OrderService(@NonNull OrderStateRepository orderStateRepository, @NonNull OrderRepository orderRepository) {
     this.orderStateRepository = orderStateRepository;
     this.orderRepository = orderRepository;
     if(orderStateRepository.findByName("CART") == null) {

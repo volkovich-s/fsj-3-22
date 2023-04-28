@@ -1,6 +1,8 @@
 package fsj_3_22.final_certification.online_store.services;
 
 import java.util.List;
+
+import fsj_3_22.final_certification.online_store.repositories.UserRoleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.lang.NonNull;
@@ -9,13 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import fsj_3_22.final_certification.online_store.models.UserRole;
 import fsj_3_22.final_certification.online_store.models.User;
-import fsj_3_22.final_certification.online_store.repositories.EnumRepository;
 import fsj_3_22.final_certification.online_store.repositories.UserRepository;
 
 @Service
 @Transactional(readOnly = true)
 public class UserService {
-    private final EnumRepository<UserRole> userRoleRepository;
+    private final UserRoleRepository userRoleRepository;
     public List<UserRole> getRoles() {
         return userRoleRepository.findAll();
     }
@@ -52,7 +53,7 @@ public class UserService {
     public void update(@NonNull User user) {
         userRepository.save(user);
     }
-    public UserService(@NonNull EnumRepository<UserRole> userRoleRepository, @NonNull UserRepository userRepository) {
+    public UserService(@NonNull UserRoleRepository userRoleRepository, @NonNull UserRepository userRepository) {
         this.userRoleRepository = userRoleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();

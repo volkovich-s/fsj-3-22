@@ -35,7 +35,7 @@
         <div th:text="${#numbers.formatDecimal(one.getProduct().getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽ - ' + ${#numbers.formatDecimal(one.getProduct().getPrice() * one.getCount(), 0, 'WHITESPACE', 2, 'COMMA')}"></div>
         <div th:text="${one.getProduct().getDescription()}"></div>
         <form method="post" th:action="'/order/admin/' + ${one.getId()} + '/state'">
-          <select style="text-align: center;" class="TextInput" th:name="state" onchange="setInterval(this.form.submit, 0);">
+          <select style="text-align: center;" class="TextInput" th:name="state" onchange="setTimeout(this.form.submit, 0);">
             <option th:if="${!state.getName().equals('CART')}" th:each="state : ${states}" th:selected="${one.getState() == state}" th:value="${state.getId()}" th:text="${state.getName()}"></option>
           </select>
         </form>

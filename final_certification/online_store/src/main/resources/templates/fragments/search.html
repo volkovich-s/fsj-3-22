@@ -27,7 +27,7 @@
           sessionStorage.setItem("search_name", search_name.value);
         if(search_sorting.value)
           sessionStorage.setItem("search_sorting", search_sorting.value);
-        location.href = (window.location.pathname.startsWith("/product/admin") ? "/product/admin/" : "/product/") + `?name=${search_name.value}&sorting=${search_sorting.value}`
+        location.href = (window.location.pathname.startsWith("/product/admin") ? "/product/admin" : "/product") + `?name=${search_name.value}&sorting=${search_sorting.value}`
       });
     </script>
   </form>
