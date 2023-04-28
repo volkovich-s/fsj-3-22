@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/main.css">
+  <th:block th:include="fragments/header.html::css"></th:block>
+  <title>Вход</title>
+</head>
+<body>
+  <th:block th:replace="fragments/header.html::html"></th:block>
+  <main>
+    <form class="Card" method="post" action="/authentication/sign_in" th:object="${user_to_sign_in}">
+      <h1 class="HeaderText">Вход</h1>
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <input class="TextInput RegularText" th:field="*{name}" type="text" placeholder="Имя">
+      <div class="Failure" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+      <input class="TextInput RegularText" th:field="*{password}" type="password" placeholder="Пароль">
+      <div class="Failure" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+      <input class="Button RegularText" type="submit" value="Войти">
+      <a class="BlackLink RegularText" href="/authentication/sign_up">Зарегистрироваться</a>
+      <a class="BlackLink RegularText" href="/">На главную</a>
+    </form>
+  </main>
+</body>
+</html>

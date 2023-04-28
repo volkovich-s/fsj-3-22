@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Продукты</title>
+  <th:block th:include="fragments/header.html::css"></th:block>
+  <th:block th:include="fragments/product.html::css"></th:block>
+</head>
+<body>
+  <th:block th:replace="fragments/header.html::html"></th:block>
+  <main>
+    <div th:if="${param.get('cart')}" class="Success">Продукт был добавлен в корзину!</div>
+    <div class="Products">
+      <div th:each="one : ${all}" class="Product" th:id="${one.getId()}">
+        <img class="CardImage" th:src="'/dimages/product/' + ${one.getImage()}" th:alt="${one.getImage()}">
+        <div th:text="${#numbers.formatDecimal(one.getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽'"></div>
+        <div th:text="${one.getName()}"></div>
+        <div th:text="${one.getDescription()}"></div>
+        <form th:if="${user != null}" style="width: 100%;" method="post" th:action="'/cart/' + ${one.getId()} + '/add'">
+          <input class="Button" type="submit" value="Добавить в корзину">
+        </form>
+      </div>
+      <script>
+        for(const product of document.getElementsByClassName("Product"))
+          product.onclick = function() {
+            window.location.href = `/product/${product.id}`;
+          }
+      </script>
+    </div>
+  </main>
+</body>
+</html>

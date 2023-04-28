@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Панель управления: продукты</title>
+  <th:block th:include="fragments/header.html::css"></th:block>
+  <th:block th:include="fragments/product.html::css"></th:block>
+</head>
+<body>
+  <th:block th:replace="fragments/header.html::html"></th:block>
+  <main>
+    <div th:if="${param.get('created')}" class="Success">Продукт был создан!</div>
+    <div th:if="${param.get('updated')}" class="Success">Продукт был обновлён!</div>
+    <div th:if="${param.get('deleted')}" class="Success">Продукт был удалён!</div>
+    <div class="Products">
+      <div th:each="one : ${all}" class="Product" th:id="${one.getId()}">
+        <img class="CardImage" th:src="'/dimages/product/' + ${one.getImage()}" th:alt="${one.getImage()}">
+        <div th:text="${#numbers.formatDecimal(one.getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽'"></div>
+        <div th:text="${one.getName()}"></div>
+        <div th:text="${one.getDescription()}"></div>
+        <form style="width: 100%;" th:if="${user.getRole().getName().equals('ROLE_ADMIN')}" method="post" th:action="'/product/admin/' + ${one.getId()} + '/delete'">
+          <input class="Button" type="submit" value="Удалить">
+        </form>
+      </div>
+      <div id="0" class="Product">
+        <img class="CardImage" src="/images/none.png">
+        <div class="Button">Создать</div>
+      </div>
+      <script>
+        for(const product of document.getElementsByClassName("Product"))
+            product.onclick = function() {
+              window.location.href = `/product/admin/${product.id}`;
+            }
+      </script>
+    </div>
+  </main>
+</body>
+</html>

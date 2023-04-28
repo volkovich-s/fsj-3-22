@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Панель управления: Заказы</title>
+  <th:block th:include="fragments/header.html::css"></th:block>
+  <th:block th:include="fragments/product.html::css"></th:block>
+</head>
+<body>
+  <main>
+    <form id="search">
+      <input class="TextInput" id="search_id" type="text" placeholder="Идентификатор заказа...">
+      <script>
+        const search = document.getElementById("search");
+        const search_id = document.getElementById("search_id");
+        if(sessionStorage.getItem("search_id")) {
+          search_id.value = sessionStorage.getItem("search_id");
+          sessionStorage.removeItem("search_id");
+        }
+        search.addEventListener("submit", function(event) {
+          event.preventDefault();
+          if(search_id.value)
+            sessionStorage.setItem("search_id", search_id.value);
+          location.href = window.location.pathname + `?id=${search_id.value}`;
+        });
+      </script>
+    </form>
+    <div class="Products">
+      <div th:each="one : ${all}" class="Product" style="cursor: unset;">
+        <div th:text="${one.getProduct().getName()}" class="HeaderText"></div>
+        <div th:text="'Заказчик:' + ${one.getUser().getName()}"></div>
+        <div th:text="'Идентификатор: ' + ${one.getId()}"></div>
+        <img class="CardImage" th:src="'/dimages/product/' + ${one.getProduct().getImage()}" th:alt="${one.getProduct().getImage()}">
+        <div th:text="${one.getCount()} + ' у.е.'"></div>
+        <div th:text="${#numbers.formatDecimal(one.getProduct().getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽ - ' + ${#numbers.formatDecimal(one.getProduct().getPrice() * one.getCount(), 0, 'WHITESPACE', 2, 'COMMA')}"></div>
+        <div th:text="${one.getProduct().getDescription()}"></div>
+        <form method="post" th:action="'/order/admin/' + ${one.getId()} + '/state'">
+          <select style="text-align: center;" class="TextInput" th:name="state" onchange="setInterval(this.form.submit, 0);">
+            <option th:if="${!state.getName().equals('CART')}" th:each="state : ${states}" th:selected="${one.getState() == state}" th:value="${state.getId()}" th:text="${state.getName()}"></option>
+          </select>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

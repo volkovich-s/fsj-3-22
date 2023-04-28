@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Создание продукта</title>
+  <th:block th:insert="fragments/header.html::css"></th:block>
+</head>
+<body>
+  <th:block th:replace="fragments/header.html::html"></th:block>
+  <main>
+    <form class="Card" method="post" th:action="'/product/admin/' + ${one.getId()}" enctype="multipart/form-data" th:object="${one}">
+      <img class="CardImage" th:src="'/dimages/product/' + ${one.getImage()}" th:alt="${one.getImage()}">
+      <div>Название:</div>
+      <input class="TextInput" th:field="*{name}" type="text" placeholder="Введите название...">
+      <div class="Failure" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+      <div>Описание:</div>
+      <textarea class="TextInput" style="height: 64px" th:field="*{description}" type="text" placeholder="Введите описание..."></textarea>
+      <div class="Failure" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+      <div>Изображение:</div>
+      <input name="image_file" type="file" accept="image/png, image/jpeg">
+      <div class="Failure" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>
+      <div>Цена (₽):</div>
+      <input class="TextInput" th:field="*{price}" type="number" placeholder="Введите цену...">
+      <div class="Failure" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+      <input class="Button" type="submit" value="Создать">
+    </form>
+  </main>
+</body>
+</html>

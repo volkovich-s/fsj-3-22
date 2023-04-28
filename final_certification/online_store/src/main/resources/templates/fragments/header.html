@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<head th:fragment="css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <th:block th:include="fragments/search.html::css"></th:block>
+</head>
+<body>
+  <header th:fragment="html" id="header">
+    <div id="brand">
+      <a class="WhiteLink" href="/">МАГАЗИН</a>
+    </div>
+    <th:block th:replace="fragments/search.html::html"></th:block>
+    <div id="links">
+      <a th:if="${user == null}" class="WhiteLink" href="/authentication/sign_in">Войти</a>
+      <a th:if="${user == null}" class="WhiteLink" href="/authentication/sign_up">Зарегистрироваться</a>
+      <a th:if="${user != null && !user.getRole().getName().equals('ROLE_ADMIN')}" class="WhiteLink" href="/cart">Корзина</a>
+      <a th:if="${user != null && !user.getRole().getName().equals('ROLE_ADMIN')}" class="WhiteLink" href="/order">Заказы</a>
+      <a th:if="${user != null && user.getRole().getName().equals('ROLE_ADMIN')}" class="WhiteLink" href="/order/admin">Заказы</a>
+      <a th:if="${user != null && user.getRole().getName().equals('ROLE_ADMIN')}" class="WhiteLink" href="/user/admin">Пользователи</a>
+      <a th:if="${user != null && user.getRole().getName().equals('ROLE_ADMIN')}" class="WhiteLink" href="/product/admin">Продукты</a>
+      <a th:if="${user != null}" class="WhiteLink" href="/authentication/sign_out">Выйти</a>
+    </div>
+  </header>
+</body>
+</html>

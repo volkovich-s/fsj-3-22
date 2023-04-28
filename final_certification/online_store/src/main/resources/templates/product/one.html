@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${one.getName()}"></title>
+  <th:block th:insert="fragments/header.html::css"></th:block>
+</head>
+<body>
+  <th:block th:replace="fragments/header.html::html"></th:block>
+  <main>
+    <form class="Card" method="post" th:action="'/cart/' + ${one.getId()} + '/add'">
+      <div class="HeaderText" th:text="${one.getName()}"></div>
+      <img class="CardImage" th:src="'/dimages/product/' + ${one.getImage()}" th:alt="${one.getImage()}">
+      <div class="RegularText" th:text="*{one.getDescription()}"></div>
+      <div class="RegularText" th:text="${#numbers.formatDecimal(one.getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽'"></div>
+      <input th:if="${user != null}" class="Button" type="submit" value="Добавить в корзину">
+    </form>
+  </main>
+</body>
+</html>

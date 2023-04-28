@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Корзина</title>
+  <th:block th:include="fragments/header.html::css"></th:block>
+  <th:block th:include="fragments/product.html::css"></th:block>
+</head>
+<body>
+  <th:block th:replace="fragments/header.html::html"></th:block>
+  <main>
+    <!--<div th:if="${#request.getParameter('removed') != null}" class="Success">Продукт был удалён из корзины!</div>-->
+    <div class="Products">
+      <div th:each="one : ${all}" class="Product" style="cursor: unset;">
+        <div th:text="${one.getProduct().getName()}" class="HeaderText"></div>
+        <img class="CardImage" th:src="'/dimages/product/' + ${one.getProduct().getImage()}" th:alt="${one.getProduct().getImage()}">
+        <div th:text="${one.getCount()} + ' у.е.'"></div>
+        <div th:text="${#numbers.formatDecimal(one.getProduct().getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽ - ' + ${#numbers.formatDecimal(one.getProduct().getPrice() * one.getCount(), 0, 'WHITESPACE', 2, 'COMMA')}"></div>
+        <div th:text="${one.getProduct().getDescription()}"></div>
+        <form style="width: 100%;" method="post" th:action="'/cart/' + ${one.getProduct().getId()} + '/remove'">
+          <input class="Button" type="submit" value="Удалить из корзины">
+        </form>
+        <form style="width: 100%;" method="post" th:action="'/order/' + ${one.getId()}">
+          <input class="Button" type="submit" value="Заказать">
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
