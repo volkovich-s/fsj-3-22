@@ -12,7 +12,7 @@
     <div th:each="one : ${all}" class="Product" style="cursor: unset;">
       <div class="RegularText" th:text="${one.getName()}"></div>
       <form method="post" th:action="'/user/admin/' + ${one.getId()} + '/role'">
-        <select th:name="role" th:disabled="${one == user}" onchange="setTimeout(this.form.submit, 0);">
+        <select th:name="role" th:disabled="${one == user}" onchange="setTimeout((select)=>{select.form.submit()}, 0, this);">
           <option th:each="role : ${roles}" th:selected="${one.getRole() == role}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
         </select>
       </form>

@@ -18,6 +18,8 @@
         <div th:text="${#numbers.formatDecimal(one.getProduct().getPrice(), 0, 'WHITESPACE', 2, 'COMMA')} + '₽ - ' + ${#numbers.formatDecimal(one.getProduct().getPrice() * one.getCount(), 0, 'WHITESPACE', 2, 'COMMA')}"></div>
         <div th:text="${one.getProduct().getDescription()}"></div>
         <div th:text="${one.getState().getName()}"></div>
+        <div th:if="${one.getBeginDateTime() != null}" th:text="'Время начала: ' + ${one.getBeginDateTime()}"></div>
+        <div th:if="${one.getEndDateTime() != null}" th:text="'Время конца: ' + ${one.getEndDateTime()}"></div>
       </div>
     </div>
   </main>

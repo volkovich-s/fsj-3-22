@@ -3,6 +3,8 @@ package fsj_3_22.final_certification.online_store.models;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "application_order")
 public class Order extends bModel {
@@ -37,6 +39,22 @@ public class Order extends bModel {
   private OrderState state;
   public OrderState getState() {
     return state;
+  }
+  @Column
+  private LocalDateTime beginDateTime;
+  public LocalDateTime getBeginDateTime() {
+    return beginDateTime;
+  }
+  public void setBeginDateTime(LocalDateTime beginDateTime) {
+    this.beginDateTime = beginDateTime;
+  }
+  @Column
+  private LocalDateTime endDateTime;
+  public LocalDateTime getEndDateTime() {
+    return endDateTime;
+  }
+  public void setEndDateTime(LocalDateTime endDateTime) {
+    this.endDateTime = endDateTime;
   }
   public void setState(@NonNull OrderState state) {
     this.state = state;

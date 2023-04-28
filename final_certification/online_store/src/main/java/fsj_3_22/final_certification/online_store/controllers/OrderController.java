@@ -9,6 +9,8 @@ import fsj_3_22.final_certification.online_store.services.UserService;
 import fsj_3_22.final_certification.online_store.services.ProductService;
 import fsj_3_22.final_certification.online_store.services.OrderService;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class OrderController {
   private final UserService userService;
@@ -64,6 +66,7 @@ public class OrderController {
   @PostMapping("order/{id}")
   public String order_add(@PathVariable int id) {
     final var order = orderService.getById(id);
+    order.setBeginDateTime(LocalDateTime.now());
     // TODO: to method.
     order.setState(orderService.getStateByName("STORAGE"));
     orderService.update(order);
@@ -80,10 +83,16 @@ public class OrderController {
     return "order/admin/all";
   }
   @PostMapping("/order/admin/{id}/state")
-  public String order_admin_state(@PathVariable int id, @RequestParam int state) {
+  public String order_admin_state(@PathVariable int id, @RequestParam(name = "state") int state_id) {
     final var order = orderService.getById(id);
-    order.setState(orderService.getStateById(state));
-    orderService.update(order);
+    final var state = orderService.getStateById(state_id);
+    // TODO: to method.
+    if(order.getState().getId() != orderService.getStateByName("RECEIVED").getId()) {
+      order.setState(state);
+      if(order.getState().getId() == orderService.getStateByName("RECEIVED").getId())
+        order.setEndDateTime(LocalDateTime.now());
+      orderService.update(order);
+    }
     return "redirect:/order/admin";
   }
 }
